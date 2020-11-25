@@ -1,4 +1,4 @@
-# Codingame-Puzzle-facile
+# Codingame-Puzzle-Facile
 #Scripts Python pour la résolution des puzzles faciles du site https://codingame.com
 
 #L'explication de ces codes est donnée dans les épisodes de ma Playlist "Tutoriels - Codingame - Puzzle facile"
