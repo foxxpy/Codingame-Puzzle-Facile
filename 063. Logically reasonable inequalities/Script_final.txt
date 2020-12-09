@@ -1,0 +1,53 @@
+import sys
+import math
+
+
+
+def check_consistency(key, inequalities, original_key, already_visited):
+    consistent = True
+
+    #Si on est déjà passé par une clé, c'est qu'on a un cycle, et donc une contradiction
+    if key in already_visited:
+        return False
+
+    already_visited.append(key)
+    #Si la valeur est dans la liste des clés
+    if key in inequalities.keys() and consistent == True:
+        for value in inequalities[key]:
+
+            if value == original_key:
+                consistent = False
+                break
+            
+            else:
+                consistent = check_consistency(value, inequalities, original_key, already_visited.copy())
+
+    return consistent
+
+
+
+#Instanciation des variables
+n = int(input())
+inequalities = dict()
+consistent = True
+
+#On récupère les inégalités en les ajoutant à un dictionnaire
+#Clé > valeurs
+for i in range(n):
+    row = input().split(" > ")
+    if not row[0] in inequalities.keys():
+        inequalities[row[0]] = [row[1]]
+    else:
+        inequalities[row[0]].append(row[1])
+
+#On parcourt le dictionnaire à la recherche d'incohérences
+for key, value in inequalities.items():
+    consistent = check_consistency(key, inequalities, key, [])
+    if not consistent:
+        break
+
+#Affichage du résultat
+if consistent:
+    print("consistent")
+else:
+    print("contradiction")

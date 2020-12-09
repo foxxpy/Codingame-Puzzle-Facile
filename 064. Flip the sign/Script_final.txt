@@ -1,0 +1,41 @@
+import sys
+import math
+
+#Instanciation des variables
+height, width = [int(i) for i in input().split()]
+digits = list()
+previous_sign = 0
+solution = True
+
+#On récupère les lignes de chiffres
+for i in range(height):
+    line = input().split(" ")
+    digits.append(line)
+
+#On récupère les lignes de chiffres qui nous intéressent
+for i in range(height):
+    line = input().split(" ")
+
+    if solution:
+        for j, mark in enumerate(line):
+            #Si on tombe sur la marque X mais que c'est la première qu'on rencontre, on définit previous_sign
+            if mark == "X" and previous_sign == 0:
+                if int(digits[i][j]) < 0:
+                    previous_sign = -1
+                else:
+                    previous_sign = 1
+
+            #Si on a déjà rencontré des nombres associés à la marque X, on vérifie que les signes s'alternent bien
+            elif mark == "X" and (previous_sign == -1 or previous_sign == 1):
+                if (int(digits[i][j]) < 0 and previous_sign == -1) or (int(digits[i][j]) > 0 and previous_sign == 1):
+                    solution = False
+                    break
+
+                else:
+                    previous_sign = 1 if previous_sign == -1 else -1
+
+#Affichage du résultat
+if solution:
+    print("true")
+else:
+    print("false")
