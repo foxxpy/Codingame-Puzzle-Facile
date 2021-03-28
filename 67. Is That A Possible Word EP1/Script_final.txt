@@ -1,0 +1,44 @@
+import sys
+import math
+
+#Instanciation des variables
+_input = list(input())
+states = list(input())
+transitions = dict()
+number_of_transitions = int(input())
+
+#On récupère les transitions
+for i in range(number_of_transitions):
+    transition = input().split(" ")
+    if transition[0] in transitions.keys():
+        transitions[transition[0]][transition[1]] = transition[2]
+    else:
+        transitions[transition[0]] = {transition[1] : transition[2]}
+
+#Variables concernant les Etats
+start_state = input()
+end_states = list(input())
+number_of_words = int(input())
+
+#On étudie les mots
+for i in range(number_of_words):
+    current_state = start_state
+    error = False
+    word = input()
+
+    for letter in word:
+        if not letter in _input:
+            error = True
+            break
+        else:
+            if not current_state in transitions.keys() or not letter in transitions[current_state].keys():
+                error = True
+                break
+            else:
+                current_state = transitions[current_state][letter]
+
+    if current_state in end_states and not error:
+        print("true")
+    else:
+        print("false")
+
