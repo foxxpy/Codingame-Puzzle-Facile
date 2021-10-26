@@ -1,0 +1,29 @@
+import sys
+import math
+
+#Instanciation des variables
+plates = dict()
+result = dict()
+distance = 13
+n = int(input())
+
+#Récupération des informations
+for i in range(n):
+    inputs = input().split()
+    plate, radarname, timestamp = inputs[0], inputs[1], int(inputs[2])
+
+    if plate in plates.keys():
+        hour = (timestamp - plates[plate]) / (3600*1000)
+        speed = int(distance / hour)
+
+        #Si la vitesse dépasse 130 km/h, on ajoute la plate au dictionnaire de résultat et on supprime la plaque
+        #du dictionnaire plates
+        if speed > 130.0:
+            result[plate] = speed
+            del plates[plate]
+    else:
+        plates[plate] = timestamp
+        
+#On affiche le résultat
+for car, speed in sorted(result.items()):
+    print(car, speed)
