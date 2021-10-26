@@ -1,0 +1,32 @@
+import sys
+import math
+
+def addnumber(board, line, col, width, height):
+    """Ajoute les nombres sur le plateau de jeu quand une mine a été détectée."""
+
+    for y, x in [(-1, -1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)]:
+        if 0 <= line + y < height and 0 <= col + x < width and board[line+y][col+x] != "x":
+            board[line+y][col+x] = str(int(board[line+y][col+x]) + 1)
+
+#Instanciation des variables
+board = list()
+width = int(input())
+height = int(input())
+
+#On récupère les lignes du jeu
+for i in range(height):
+    line = input().replace(".", "0")
+    board.append(list(line))
+
+#On ajoute les nombres sur le plateau de jeu par rapport aux positions des mines
+for line in range(height):
+    for col in range(width):
+        if board[line][col] == "x":
+            addnumber(board, line, col, width, height)
+
+#On affiche la ligne en remplaçant les 0 et les mines "x" par des points "."
+for line in board:
+    line = "".join(line)
+    line = line.replace("0", ".")
+    line = line.replace("x", ".")
+    print(line)
