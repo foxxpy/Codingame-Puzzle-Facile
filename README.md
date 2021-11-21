@@ -113,24 +113,40 @@
 
 51/	Sudoku Validator : https://youtu.be/45AsKH7qipQ
 
-52/	Are the clumps normal
+52/	Are the clumps normal :
 
-53/	What’s so complex about Mandelbrot ?
+53/	What’s so complex about Mandelbrot ? :
 
-54/	A child’s play
+54/	A child’s play :
 
-55/	Organic Compounds
+55/	Organic Compounds :
 
-56/	Stall Tilt
+56/	Stall Tilt :
 
-57/	Auto pickup
+57/	Auto pickup :
 
-58/	Count as I Count
+58/	Count as I Count :
 
-59/	Rectangular Block Spinner
+59/	Rectangular Block Spinner :
 
-60/	Balanced Ternary Computer
+60/	Balanced Ternary Computer :
 
-61/	The lost child.Episode-1
+61/	The lost child.Episode-1 :
 
-62/	Graffiti on the fence
+62/	Graffiti on the fence :
+
+63/ Logically reasonable inequalities :
+
+64/ Flip the sign :
+
+65/ is the King in Check Part 1 :
+
+66/ 7-segment scanner :
+
+67/ Is that a possible word EP1 :
+
+68/ 1. NGR - Basic Radar :
+
+69/ Reverse Minesweeper :
+
+70. Detective Geek :
