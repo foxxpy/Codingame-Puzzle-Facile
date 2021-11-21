@@ -1,0 +1,56 @@
+import sys
+import math
+
+def to_base_12(address):
+    date_value = {"jan" :  "0", "feb" : "1",
+                  "mar" :  "2", "apr" : "3",
+                  "may" :  "4", "jun" : "5",
+                  "jul" :  "6", "aug" : "7",
+                  "sep" :  "8", "oct" : "9",
+                  "nov" : "A", "dec" : "B"
+    }
+    values = []
+    for code in address:
+        value = ""
+        for i in range(0,2):
+            month = code[3*i:3*(i+1)]
+            value += date_value[month]
+        values.append(value)
+
+    return values
+
+
+
+def add_0_to_time(time):
+    return "0" * (4 - len(time)) + time
+
+
+
+def base_n_to_base_10(base_n, n):
+    base_10 = 0
+    values = {"1" : 1, "2" : 2, "3" : 3,
+              "4" : 4, "5" : 5, "6" : 6,
+              "7" : 7, "8" : 8, "9" : 9,
+              "A" : 10, "B": 11, "0" : 0}
+    for i, digit in enumerate(base_n[::-1]):
+        base_10 += values[digit] * (n**i)
+    return base_10
+
+# --- Instanciation des variables ---
+#On convertit le temps en binaire, puis en décimal, on ajoute des zéros si sa longueur n'est pas de 4
+#Puis on ajoute le ":" au milieu
+time = input().replace("#", "1").replace("*", "0")
+time = str(base_n_to_base_10(time, 2))
+time = add_0_to_time(time)
+time = time[0:2]+ ":"+time[2:]
+
+#On convertit chaque élément en base 12, puis en base décimale, puis on récupère le caractère ascii
+address = input().split(" ")
+base_12 = to_base_12(address)
+base_10 = [base_n_to_base_10(x, 12) for x in base_12]
+letters = [chr(x) for x in base_10]
+
+
+#Réponse
+print(time)
+print("".join(letters))
