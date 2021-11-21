@@ -149,4 +149,4 @@
 
 69/ Reverse Minesweeper :
 
-70. Detective Geek :
+70/ Detective Geek :
