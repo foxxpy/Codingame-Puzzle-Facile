@@ -1,0 +1,44 @@
+import sys
+import math
+
+def find_value(assignments, x):
+
+    stack = []
+
+    #On cherche à construire la pile d'appels
+    while "[" in x:
+        index = x.find("[")
+        stack.append(x[:index])
+        x = x[index+1:]
+
+    #On retire le "]" pour obtenir la première valeur qui va nous permettre de dépiler la pile d'appels
+    index = x.find("]")
+    value = int(x[:index])
+
+    #On dépile la pile d'appels en récupérant les valeurs dans chaque liste au fur et à mesure
+    while len(stack) > 0:
+        letter = stack.pop()
+        value = assignments[letter][value]
+
+    return value
+
+
+#Instanciation des variables
+n = int(input())
+assignments = dict()
+
+#On créé un dictionnaire qui va contenir pour chaque lettre, un index associé à une valeur
+for i in range(n):
+    assignment = input().split("=")
+    list_name = assignment[0].split("[")[0]
+    values = assignment[1].strip().split(" ")
+    range_assignment = assignment[0].split("[")[1][:-2].split("..")
+    range_assignment = [int(x) for x in range_assignment]
+
+    assignments[list_name] = {}
+    for j, k in enumerate(range(range_assignment[0], range_assignment[1]+1)):
+        assignments[list_name][k] = int(values[j])
+
+#On recherche et on affiche le résultat
+x = input()
+print(find_value(assignments, x))
