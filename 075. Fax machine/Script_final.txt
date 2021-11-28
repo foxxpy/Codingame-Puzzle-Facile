@@ -1,0 +1,41 @@
+import sys
+import math
+
+#Instanciation des variables
+w = int(input())
+h = int(input())
+
+#On récupère toutes les valeurs pour les pixels et leur couleur
+t = input().split(" ")
+t = [int(x) for x in t]
+black = False
+rows = []
+
+#On créé le format compressé
+row = ""
+c = 1
+while t:
+    color = t.pop(0)
+    black = not black
+
+    while color > 0:
+
+        #Si on est en début de ligne
+        if c == 1:
+            row = "|*" if black else "| "
+        
+        #Si on est en fin de ligne
+        elif c == w:
+            row += "*|" if black else " |"
+            rows.append(row)
+            c = 0
+
+        else:
+            row += "*" if black else " "
+
+        c = c + 1
+        color = color - 1
+
+#On affiche le résultat
+for row in rows:
+    print(row)

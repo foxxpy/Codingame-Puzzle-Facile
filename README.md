@@ -158,3 +158,5 @@
 73/ Binary image :
 
 74/ Offset arrays :
+
+75/ Fax machine :
