@@ -1,0 +1,41 @@
+import sys
+import math
+
+#Instanciation des variables
+h = int(input())
+final_rows = []
+length_final_rows = 0
+invalid = False
+
+#Récupération et décodage des lignes
+for i in range(h):
+    row = input().split(" ")
+
+    #On initialise notre message décodé qui commence par "0" si la ligne commence par un pixel noir
+    white = True if row[0] != "0" else False
+    row = row[1:] if row[0] == "0" else row
+    decoded_row = ""
+
+    #Pour chaque numéro de la ligne, on associe le nombre de pixels correspondant de la bonne couleur
+    for num in row:
+        pixels = "." * int(num) if white else "O" * int(num)
+        decoded_row += pixels
+        white = not white
+
+    final_rows.append(decoded_row)
+
+    #Si on a une ligne qui n'a pas la même longueur que les lignes précédentes, alors on n'a pas de rectangle
+    #et le décodage est invalide
+    if length_final_rows == 0:
+        length_final_rows = len(decoded_row)
+
+    if len(decoded_row) != length_final_rows:
+        invalid = True
+        break
+
+if invalid:
+    print("INVALID")
+
+else:
+    for decoded_row in final_rows:
+        print(decoded_row)

@@ -154,3 +154,5 @@
 71/ Code Breaker Puzzle :
 
 72/ Treasure hunt :
+
+73/ Binary image :
