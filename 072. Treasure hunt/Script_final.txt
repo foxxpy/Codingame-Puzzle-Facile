@@ -1,0 +1,38 @@
+import sys
+import math
+
+def get_treasures(treasure_map, row, col):
+    
+    if row < 0 or row >= len(treasure_map) \
+    or col < 0 or col >= len(treasure_map[0]) \
+    or treasure_map[row][col] == "#":
+        return 0
+
+    else:
+        value = int(treasure_map[row][col]) if treasure_map[row][col].isnumeric() else 0
+        treasure_map[row][col] = "#"
+        left = get_treasures(treasure_map, row, col-1)
+        right = get_treasures(treasure_map, row, col+1)
+        down = get_treasures(treasure_map, row+1, col)
+        up = get_treasures(treasure_map, row-1, col)
+
+        return value + max(left, right, down, up)
+
+#Instanciation des variables
+h, w = [int(i) for i in input().split()]
+treasure_map = []
+row, col = 0, 0
+
+#On récupère la carte et la position de départ
+for i in range(h):
+    row_map = list(input())
+    treasure_map.append(row_map)
+
+    if "X" in row_map:
+        row, col = i, row_map.index("X")
+
+print("row : {} - col - {}".format(row, col), file=sys.stderr)
+
+max_value = get_treasures(treasure_map, row, col)
+
+print(max_value)

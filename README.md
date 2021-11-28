@@ -152,3 +152,5 @@
 70/ Detective Geek :
 
 71/ Code Breaker Puzzle :
+
+72/ Treasure hunt :
