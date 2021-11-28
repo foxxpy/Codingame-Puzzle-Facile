@@ -1,0 +1,38 @@
+import sys
+import math
+
+def cryptage(alphabet, cle, B, lettre):
+    
+    index_lettre = alphabet.find(lettre)
+    L = len(alphabet)
+    return ((index_lettre+cle)*B) % L
+
+
+
+def cesar(alphabet, cle, B, mot):
+    
+    mot_crypte = ""
+    for i, lettre in enumerate(mot):
+        index_nouvelle_lettre = cryptage(alphabet, cle, B, lettre)
+        mot_crypte += alphabet[index_nouvelle_lettre]
+
+    return mot_crypte
+
+#Instanciation des variables
+alphabet = input()
+message = input()
+word = input()
+
+B = 0
+decrypted_message = message
+
+#Tant qu'on ne trouve pas le mot dans le message décrypté, on incrémente B
+#Et pour chaque valeur de B on tente toutes les clés.
+while not word in decrypted_message:
+    B += 1
+    for cle in range(1, len(alphabet)):
+        decrypted_message = cesar(alphabet, cle, B, message)
+        if word in decrypted_message:
+            break
+
+print(decrypted_message)
