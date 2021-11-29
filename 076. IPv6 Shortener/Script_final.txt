@@ -1,0 +1,100 @@
+import sys
+import math
+
+def get_longest_sequence_of_zeros(ip):
+    """Renvoie la position de début et de fin de la plus longue séquence de '0000' à la suite."""
+
+    i = 0
+    max_count = 0
+    start, end = 0, 0
+    while i < len(ip):
+        count = count_nb_zero(ip, i)
+        if count > max_count:
+            max_count = count
+            start = i
+            end = i + count
+        i = i + 1
+
+    return start, end
+
+
+def count_nb_zero(ip, index):
+    """Compte le nombre de zéros à la suite."""
+
+    count = 0
+
+    while index < len(ip) and ip[index] == "0000":
+        count += 1
+        index += 1
+    return count
+
+
+def shorten_zeros(ip, start, end):
+    """Transforme les '0000' en ''."""
+    if end - start > 1:
+        for i in range(start, end):
+            ip[i] = ""
+
+    return ip
+
+
+def shorten_ip(ip, start, end):
+    """Raccourcit l'adresse ip v6 en convertissant les '0000' ne faisant pas partie de la séquence
+    la plus longue de zéros en '0' et en retirant les '0' devant les nombres."""
+
+    new_ip = []
+    for num in ip:
+        if len(num) == num.count("0") and num.count("0") > 0:
+            num = "0" 
+
+        elif num.count("0") > 0 and num[0] == "0":
+            count = 0
+            i = 0
+            while num[i] == "0":
+                count += 1
+                i = i + 1
+            num = num[count:]
+
+        new_ip.append(num)
+
+    return new_ip
+
+
+def pjoin(join_char, ip, start, end):
+    """Transforme une liste en string en joignant les éléments avec join_char selon les
+    règles de raccourcissement d'une adresse ip v6."""
+
+    new_string = ""
+    i = 0
+    while i < len(ip):
+        if i == start and end - start > 1:
+            new_string += ":" if i > 0 else "::"
+            i = end
+        else:
+            new_string += ip[i] + join_char
+            i = i + 1
+
+    #Si la séquence de zéros la plus longue est à la fin, on ne retire pas le dernier ":""
+    if end == len(ip):
+        return new_string
+    else:
+        return new_string[:-1]
+        
+
+#Instanciation des variables
+ip = input().split(":")
+
+#On récupère l'indice de début et de fin de la séquence de zéros la plus longue
+start, end = get_longest_sequence_of_zeros(ip)
+
+#On transforme les "0000" de la séquence la plus longue de zéros en ""
+ip = shorten_zeros(ip, start, end)
+
+#On raccourcit l'ip en retirant les 0 devant chaque nombre
+ip = shorten_ip(ip, start, end)
+
+#On convertit notre ip (list) en ip (str)
+ip = pjoin(":", ip, start, end)
+
+#Affichage de l'ipv6 raccourcie
+print(ip)

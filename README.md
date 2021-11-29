@@ -160,3 +160,5 @@
 74/ Offset arrays :
 
 75/ Fax machine :
+
+76/ IP v6 shortener :
