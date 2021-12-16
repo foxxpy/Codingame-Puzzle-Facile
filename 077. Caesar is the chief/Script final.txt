@@ -1,0 +1,50 @@
+import sys
+import math
+
+def cryptage(cle, lettre):
+    """Encode une lettre grâce à une clé. L'encodage est le déplacement
+    de la lettre dans l'alphabet par rapport à la valeur de la clé"""
+    
+    #Si la lettre est en majuscule
+    if 65 <= ord(lettre) <= 90:
+        return chr(65 + (ord(lettre)-65+cle) % 26)
+
+    #Si la lettre est en minuscule
+    elif 97 <= ord(lettre) <= 122:
+        return chr(97 + (ord(lettre)-97+cle) % 26)
+        
+    #Si ce n'est pas une lettre
+    else:
+        return lettre
+
+
+
+def cesar(cle, mot):
+    """Encode un mot avec le chiffre de César"""
+    
+    mot_crypte = ""
+    for lettre in mot:
+        mot_crypte += cryptage(cle, lettre)
+
+    return mot_crypte
+
+#Instanciation des variables
+text_to_decode = input()
+wrong_message = True
+
+for i in range(1, 27):
+    decode = cesar(i, text_to_decode)
+
+    #Si "CHIEF" est dans decode, on vérifie que c'est un mot isolé et non un mot collé à un autre mot
+    if "CHIEF" in decode:
+        start, end = decode.find("CHIEF"), decode.find("CHIEF") + 4
+        if (start == 0 or start > 0 and decode[start-1] == " ") and \
+        (end == len(decode) - 1 or end < len(decode) and decode[end+1] == " "):
+            wrong_message = False
+            break
+
+#Affichage du résultat final
+if wrong_message:
+    print("WRONG MESSAGE")
+else:
+    print(cesar(i, text_to_decode))
